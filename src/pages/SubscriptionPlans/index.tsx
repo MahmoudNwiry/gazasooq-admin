@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import PageBreadcrumb from "../../components/common/PageBreadCrumb"
 import PageMeta from "../../components/common/PageMeta"
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useUserStore } from "../../store/useStore";
 import Alert from "../../components/ui/alert/Alert";
 import Button from "../../components/ui/button/Button";
@@ -41,7 +40,7 @@ const SubscriptionPlansPage = () => {
 
 
   const deletePlan = async (id : string) => {
-
+    console.log(id);
   }
 
   return (

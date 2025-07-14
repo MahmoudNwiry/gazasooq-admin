@@ -53,7 +53,7 @@ const ShopDetails = () => {
                         <div className='flex items-center gap-2'>
                           {
                             shop?.category.map((cat: any) => (
-                              <span key={cat._id} className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-1 rounded-full text-sm text-sm">
+                              <span key={cat._id} className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-1 rounded-full text-sm">
                                 {cat.name}
                               </span>
                             ))

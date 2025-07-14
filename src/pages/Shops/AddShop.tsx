@@ -131,7 +131,7 @@ export default function AddShop() {
   }
 
   const sendData = async () => {
-    // // if (password !== confirmPassword) return
+    if (password !== confirmPassword) return alert("كلمة المرور غير متطابقة");
 
     // if (!shopImage) return
 

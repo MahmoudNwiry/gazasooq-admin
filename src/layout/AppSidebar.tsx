@@ -8,7 +8,6 @@ import {
   GridIcon,
   HorizontaLDots,
   PieChartIcon,
-  PlugInIcon,
   UserCircleIcon,
   BoltIcon,
   ShootingStarIcon,

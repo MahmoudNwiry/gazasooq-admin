@@ -30,7 +30,7 @@ import ProductsCategories from "./pages/ProductCategories";
 import ShopDetails from "./pages/Shops/ShopDetails";
 
 export default function App() {
-  const {isLoading, loading, fetchUserData, logout } = useUserStore(); 
+  const {isLoading, fetchUserData, logout } = useUserStore(); 
   const [checkingAuth, setCheckingAuth] = useState(true);
   useEffect(() => {
     const IsLoggedInCheck = localStorage.getItem('sooq-isLoggedIn') || false;

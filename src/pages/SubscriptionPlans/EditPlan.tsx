@@ -5,8 +5,6 @@ import Input from "../../components/form/input/InputField";
 import TextArea from "../../components/form/input/TextArea";
 import Label from "../../components/form/Label";
 import Alert from "../../components/ui/alert/Alert";
-import { useUserStore } from "../../store/useStore";
-import axios from "axios";
 import { useParams } from "react-router";
 import axiosInstance from "../../utils/axiosInstance";
 
@@ -25,7 +23,6 @@ export default function EditPlan() {
 
     const {spid} = useParams();
 
-    const {userdata} = useUserStore();
     
     const [name, setName] = useState(defaultData.name);
     const [price, setPrice] = useState(defaultData.price);
