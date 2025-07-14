@@ -39,7 +39,7 @@ export default function App() {
       localStorage.setItem("sooq-isLoggedIn", JSON.stringify(false))
     } else {
        isLoading(true);
-        fetchUserData('http://localhost:5000/api')
+        fetchUserData()
           .catch(() => {
             localStorage.removeItem("sooq-isLoggedIn");
             localStorage.removeItem("sooq-token");

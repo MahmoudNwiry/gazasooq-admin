@@ -5,9 +5,9 @@ import Button from "../components/ui/button/Button";
 import { Modal } from "../components/ui/modal";
 import Label from "../components/form/Label";
 import Input from "../components/form/input/InputField";
-import axios from "axios";
 import { useUserStore } from "../store/useStore";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "../components/ui/table";
+import axiosInstance from "../utils/axiosInstance";
 
 interface Categories {
   name : string;
@@ -16,7 +16,6 @@ interface Categories {
 
 export default function ShopCategories() {
 
-    const {userdata} = useUserStore();
     const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
     const [addName, setAddName] = useState<string>('');
 
@@ -28,10 +27,9 @@ export default function ShopCategories() {
 
     const sendAddData = async () => {
         try {
-          const response = await axios.post(
-            `http://localhost:5000/api/admin/shop-category`, 
-            {name: addName},
-            {headers : {'authorization' : `Bearer ${userdata?.token}`}}
+          const response = await axiosInstance.post(
+            `/admin/shop-category`, 
+            {name: addName}
           )
 
           if(response.status === 201) {
@@ -47,7 +45,7 @@ export default function ShopCategories() {
     useEffect(() => {
       const getData = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/user/shopCategory`, {headers : {'authorization' : `Bearer ${userdata?.token}`}});
+          const response = await axiosInstance.get(`/user/shopCategory`);
           setCategories(response.data)
         } catch (error) {
           console.log(error);

@@ -7,8 +7,6 @@ import Select from "../../components/form/Select";
 import MultiSelect from "../../components/form/MultiSelect";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
-import { useUserStore } from "../../store/useStore";
-import axios from "axios";
 
 type MultiSelectType = { text: string; value: string; }
 type AddressType = { governorate: string; area: string; _id: string;[key: string]: any };
@@ -18,12 +16,10 @@ type SelectedPlanType = { type: string, startDate: string, endDate: string, stat
 
 export default function AddShop() {
 
-  const { userdata } = useUserStore();
 
   const [categories, setCategories] = useState<MultiSelectType[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedType, setSelectedType] = useState<string>("");
-  const [shopImage, setShopImage] = useState<File | null>(null);
   const [shopName, setShopName] = useState<string>("");
   const [ownerName, setOwnerName] = useState<string>("");
   const [ownerId, setOwnerId] = useState<string>("");
@@ -135,31 +131,29 @@ export default function AddShop() {
   }
 
   const sendData = async () => {
-    // if (password !== confirmPassword) return
+    // // if (password !== confirmPassword) return
 
-    if (!shopImage) return
+    // if (!shopImage) return
 
-    const logoName = `shops/logo/LOGO-${shopImage.name}-${new Date().toISOString()}`;
+    // const logoName = `shops/logo/LOGO-${shopImage.name}-${new Date().toISOString()}`;
 
     try {
-      const imgRes = await axios.get('http://localhost:5000/api/s3-url', {
-        params: {
-          fileName: logoName,
-          fileType: shopImage.type,
-        }
-      })
+    //   const imgRes = await axios.get('http://localhost:5000/api/s3-url', {
+    //     params: {
+    //       fileName: logoName,
+    //       fileType: shopImage.type,
+    //     }
+    //   })
 
 
 
-      const { uploadUrl } = imgRes.data;
+    //   const { uploadUrl } = imgRes.data;
 
-      await axios.put(uploadUrl, shopImage, {
-        headers: {
-          'Content-Type': shopImage.type,
-        },
-      });
-
-
+    //   await axios.put(uploadUrl, shopImage, {
+    //     headers: {
+    //       'Content-Type': shopImage.type,
+    //     },
+    //   });
       const body = {
         name: shopName,
         phoneNumber: phoneNumber,
@@ -167,7 +161,6 @@ export default function AddShop() {
         ownerName: ownerName,
         ownerId: ownerId,
         type: selectedType,
-        logo: logoName,
         description: description,
         address: {
           addressId: selectedAddress,
@@ -195,7 +188,6 @@ export default function AddShop() {
         setDescription("");
         setSelectedCategories([]);
         setSelectedType("");
-        setShopImage(null);
         setSelectedPlan({ type: '', startDate: '', endDate: '', status: 'expired' });
       } else {
         alert("حدث خطأ أثناء إضافة المتجر");
@@ -315,7 +307,7 @@ export default function AddShop() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
-              <div>
+              {/* <div>
                 <Label>
                   صورة المتجر <span className="text-error-500">*</span>{" "}
                 </Label>
@@ -333,7 +325,7 @@ export default function AddShop() {
                   name="shopImage"
                   id="shopImage"
                 />
-              </div>
+              </div> */}
             </div>
             <div>
               <h4 className="mt-8 mb-4 font-semibold text-gray-800 text-theme-lg dark:text-white/90 sm:text-xl">

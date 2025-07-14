@@ -4,14 +4,14 @@ import Input from '../../components/form/input/InputField'
 import Label from '../../components/form/Label'
 import TextArea from '../../components/form/input/TextArea'
 import { useState } from 'react'
-import axios from 'axios'
-import { useUserStore } from '../../store/useStore'
 import Alert from '../../components/ui/alert/Alert'
+import axiosInstance from '../../utils/axiosInstance'
+import Select from '../../components/form/Select'
 
 const defaultData = {
   name : '',
   price: 0,
-  duration: 0,
+  duration: 'يومي',
   features: '',
   alert : {
     type : 'none',
@@ -21,7 +21,6 @@ const defaultData = {
 
 export default function AddSubsriptionPlan() {
 
-  const {userdata} = useUserStore();
 
   const [name, setName] = useState(defaultData.name);
   const [price, setPrice] = useState(defaultData.price);
@@ -35,16 +34,13 @@ export default function AddSubsriptionPlan() {
     const featuresArr = features.split(',');
 
     try {
-      const response = axios.post(
-        'http://localhost:5000/api/owner/subscription-plan',
+      const response = axiosInstance.post(
+        '/owner/subscription-plan',
         {
           name, 
           price, 
           duration, 
           features: featuresArr
-        },
-        {
-          headers : {'authorization' : `Bearer ${userdata?.token}`}
         }
       );
 
@@ -108,14 +104,11 @@ export default function AddSubsriptionPlan() {
           </div>
           <div>
             <Label>
-              المدة بالايام <span className="text-error-500">*</span>{" "}
+              المدة  <span className="text-error-500">*</span>{" "}
             </Label>
-            <Input
-            type="number"
-            value={duration}
-            onChange={(e) => setDuration(e.target.valueAsNumber)}
-            placeholder="ضع المدة هنا بالايام"
-            min='1'
+            <Select 
+              options={[{label : 'سنوي', value : 'سنوي'}, {label : 'شهري', value : 'شهري'}, {label : 'إسبوعي', value : 'إسبوعي'}, {label : 'يومي', value : 'يومي'}]}
+              onChange={(e) => setDuration(e)}
             />
           </div>
           <div>

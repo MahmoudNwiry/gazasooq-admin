@@ -8,6 +8,7 @@ import Alert from "../../components/ui/alert/Alert";
 import { useUserStore } from "../../store/useStore";
 import axios from "axios";
 import { useParams } from "react-router";
+import axiosInstance from "../../utils/axiosInstance";
 
 const defaultData = {
   name : '',
@@ -37,7 +38,7 @@ export default function EditPlan() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/owner/subscription-plan/${spid}`, {headers : {authorization : `Bearer ${userdata?.token}`}})
+        const response = await axiosInstance.get(`/owner/subscription-plan/${spid}`)
 
         setName(response.data.name)
         setPrice(response.data.price)
@@ -57,16 +58,13 @@ export default function EditPlan() {
     const featuresArr = features.split(',');
 
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/owner/subscription-plan/${spid}`,
+      const response = await axiosInstance.put(
+        `/owner/subscription-plan/${spid}`,
         {
           name, 
           price, 
           duration, 
           features: featuresArr
-        },
-        {
-          headers : {'authorization' : `Bearer ${userdata?.token}`}
         }
       );
 

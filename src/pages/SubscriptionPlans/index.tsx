@@ -6,6 +6,7 @@ import axios from "axios";
 import { useUserStore } from "../../store/useStore";
 import Alert from "../../components/ui/alert/Alert";
 import Button from "../../components/ui/button/Button";
+import axiosInstance from "../../utils/axiosInstance";
 
 interface planTypes {
   _id : string;
@@ -23,8 +24,8 @@ const SubscriptionPlansPage = () => {
   useEffect(()=>{
     const getData = async () => {
       try {
-        const response = await axios.get(
-          'http://localhost:5000/api/owner/subscription-plan', 
+        const response = await axiosInstance.get(
+          '/owner/subscription-plan', 
           {headers : {'authorization' : `Bearer ${userdata?.token}`}}
         );
 

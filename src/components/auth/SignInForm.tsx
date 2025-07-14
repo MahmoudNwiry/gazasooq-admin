@@ -5,6 +5,7 @@ import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import axios from "axios";
 import { useUserStore } from "../../store/useStore";
+import axiosInstance from "../../utils/axiosInstance";
 
 export default function SignInForm() {
 
@@ -21,8 +22,8 @@ export default function SignInForm() {
       navigation('/')
     }
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/auth/login', 
+      const response = await axiosInstance.post(
+        '/auth/login', 
         {
           phoneNumber: phoneNumber,
           password: password

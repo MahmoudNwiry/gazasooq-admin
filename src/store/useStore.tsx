@@ -1,5 +1,6 @@
 import { create } from "zustand/react";
 import axios from 'axios'
+import axiosInstance from "../utils/axiosInstance";
 
 interface UserState {
     userdata: {
@@ -18,7 +19,7 @@ interface UserState {
     error : string | null;
     setUserData: (data: {id : string, firstName: string; lastName: string, phone: string; token: string; avatar: string, role: string }) => void;
     logout: () => void;
-    fetchUserData: (api_url: string) => Promise<void | { success: boolean; errorType?: string; message?: string }>;
+    fetchUserData: () => Promise<void | { success: boolean; errorType?: string; message?: string }>;
 }
 
 export const useUserStore = create<UserState>((set) => ({
@@ -38,7 +39,7 @@ export const useUserStore = create<UserState>((set) => ({
     isLoading : (value) => {
         set({loading : value})
     },
-    fetchUserData: async (api_url) => {
+    fetchUserData: async () => {
         try {
             const getToken = JSON.parse(localStorage.getItem("sooq-token") as string);
             
@@ -48,7 +49,7 @@ export const useUserStore = create<UserState>((set) => ({
                 throw new Error("Faild to get token")
 
             }
-            const response = await axios.get(`${api_url}/auth/profile`, {
+            const response = await axiosInstance.get(`/auth/profile`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
