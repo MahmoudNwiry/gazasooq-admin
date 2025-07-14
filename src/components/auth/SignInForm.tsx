@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router";
 import { EyeCloseIcon, EyeIcon } from "../../icons";
 import Label from "../form/Label";
 import Input from "../form/input/InputField";
-import axios from "axios";
 import { useUserStore } from "../../store/useStore";
 import axiosInstance from "../../utils/axiosInstance";
 
@@ -15,7 +14,7 @@ export default function SignInForm() {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 
-  const { setUserData, userdata, isLoggedIn } = useUserStore();
+  const { setUserData, isLoggedIn } = useUserStore();
 
   const sendData = async () => {
     if(isLoggedIn) {
