@@ -53,6 +53,7 @@ export const useUserStore = create<UserState>((set) => ({
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "Cache-Control": "no-cache",
                     authorization: `Bearer ${getToken}`,
                 },
             })
