@@ -7,7 +7,6 @@ import {
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  PieChartIcon,
   UserCircleIcon,
   BoltIcon,
   ShootingStarIcon,
