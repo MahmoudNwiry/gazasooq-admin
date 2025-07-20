@@ -10,7 +10,7 @@ import Home from "./pages/Dashboard/Home";
 import { useEffect, useState } from "react";
 import { useUserStore } from "./store/useStore";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
-import Shops from "./pages/Shops";
+import Shops from "./pages/Shops/Shops";
 import AddShop from "./pages/Shops/AddShop";
 import SubscriptionPlansPage from "./pages/SubscriptionPlans";
 import AddSubsriptionPlan from "./pages/SubscriptionPlans/AddSubsriptionPlan";
@@ -19,6 +19,13 @@ import ShopCategories from "./pages/ShopCategories";
 import ProductsCategories from "./pages/ProductCategory/ProductCategories";
 import ProductsCategoriesDetails from "./pages/ProductCategory/ProductCategoriesDetails";
 import ShopDetails from "./pages/Shops/ShopDetails";
+import { Toaster, resolveValue } from 'react-hot-toast';
+
+import { MdError } from "react-icons/md";
+import { FaCircleCheck } from "react-icons/fa6";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaRegMehBlank } from "react-icons/fa";
+
 
 export default function App() {
   const {isLoading, fetchUserData, logout } = useUserStore(); 
@@ -50,6 +57,19 @@ export default function App() {
     <>
       <Router>
         <ScrollToTop />
+        <Toaster position="top-center" toastOptions={{style : {zIndex : 999999999999999}}}>
+          {(t) => (
+              <div
+                className="py-4 px-8 rounded-2xl bg-gray-200 shadow-lg dark:bg-gray-700 text-gray-800 dark:text-white border-2 border-gray-300 dark:border-gray-700 flex items-center justify-between gap-2"
+              >
+                {t.type === 'error' && <MdError className="text-error-500" size={28} />}
+                {t.type === 'success' && <FaCircleCheck className="text-success-500" size={28} />}
+                {t.type === 'blank' && <FaRegMehBlank className="text-gray-500" size={28} />}
+                {t.type === 'loading' && <AiOutlineLoading3Quarters className="text-gray-500 animate-spin" size={28} />}
+                <span>{resolveValue(t.message, t)}</span>
+              </div>
+          )}
+        </Toaster>
         <Routes >
           {/* Dashboard Layout */}
           <Route element={<ProtectedRoutes />}>

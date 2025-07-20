@@ -7,6 +7,10 @@ import Select from "../../components/form/Select";
 import MultiSelect from "../../components/form/MultiSelect";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
+import toast from 'react-hot-toast';
+import { ShopSchema } from "../../utils/validations";
+import { set } from "zod";
+import Loading from "../../components/common/Loading";
 
 type MultiSelectType = { text: string; value: string; }
 type AddressType = { governorate: string; area: string; _id: string;[key: string]: any };
@@ -16,6 +20,7 @@ type SelectedPlanType = { type: string, startDate: string, endDate: string, stat
 
 export default function AddShop() {
 
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [categories, setCategories] = useState<MultiSelectType[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -49,7 +54,8 @@ export default function AddShop() {
         setCategories(catResArr);
       })
       .catch((error) => {
-        console.error("Error fetching shop categories:", error);
+        console.error("Error fetching categories:", error);
+        toast.error("حدث خطأ أثناء تحميل الأقسام، يرجى المحاولة مرة أخرى");
       });
 
 
@@ -59,6 +65,7 @@ export default function AddShop() {
       })
       .catch((error) => {
         console.error("Error fetching subscription plans:", error);
+        toast.error("حدث خطأ أثناء تحميل خطط الاشتراك، يرجى المحاولة مرة أخرى");
       });
 
 
@@ -69,6 +76,7 @@ export default function AddShop() {
       })
       .catch((error) => {
         console.error("Error fetching shippingAddresses:", error);
+        toast.error("حدث خطأ أثناء تحميل عناوين الشحن، يرجى المحاولة مرة أخرى");
       });
 
   }, []);
@@ -131,29 +139,8 @@ export default function AddShop() {
   }
 
   const sendData = async () => {
-    if (password !== confirmPassword) return alert("كلمة المرور غير متطابقة");
-
-    // if (!shopImage) return
-
-    // const logoName = `shops/logo/LOGO-${shopImage.name}-${new Date().toISOString()}`;
-
     try {
-    //   const imgRes = await axios.get('http://localhost:5000/api/s3-url', {
-    //     params: {
-    //       fileName: logoName,
-    //       fileType: shopImage.type,
-    //     }
-    //   })
-
-
-
-    //   const { uploadUrl } = imgRes.data;
-
-    //   await axios.put(uploadUrl, shopImage, {
-    //     headers: {
-    //       'Content-Type': shopImage.type,
-    //     },
-    //   });
+      setLoading(true);
       const body = {
         name: shopName,
         phoneNumber: phoneNumber,
@@ -175,10 +162,18 @@ export default function AddShop() {
         }
       }
 
+      const validationResult = ShopSchema.safeParse({...body, confirmPassword: confirmPassword});
+
+      if (!validationResult.success) {
+        const firstError = validationResult.error.issues[0];
+        toast.error(firstError.message, {
+          duration: 3000,});
+        return;
+      }
 
       const res = await axiosInstance.post('/admin/shop', body);
       if (res.status === 200) {
-        alert("تم إضافة المتجر بنجاح");
+        toast.success("تم إضافة المتجر بنجاح");
         setShopName("");
         setPhoneNumber("");
         setOwnerName("");
@@ -190,12 +185,15 @@ export default function AddShop() {
         setSelectedType("");
         setSelectedPlan({ type: '', startDate: '', endDate: '', status: 'expired' });
       } else {
-        alert("حدث خطأ أثناء إضافة المتجر");
+        toast.error("حدث خطأ أثناء إضافة المتجر، يرجى المحاولة مرة أخرى");
+        console.error("Error adding shop:", res.data);
       }
 
     } catch (error) {
-      console.log(error);
-
+      console.error("Error sending data:", error);
+      toast.error("حدث خطأ أثناء إضافة المتجر، يرجى المحاولة مرة أخرى");
+    } finally {
+      setLoading(false);
     }
 
   }
@@ -208,7 +206,10 @@ export default function AddShop() {
         description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       <PageBreadcrumb pageTitle="المتاجر" />
-      <div className="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+      <div className=" relative min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+        {
+          loading ? <Loading /> : null
+        }
         <div className="w-full">
           <div className="flex flex-row items-center justify-between">
             <h3 className="mb-4 font-semibold text-gray-800 text-theme-xl dark:text-white/90 sm:text-2xl">
@@ -307,25 +308,6 @@ export default function AddShop() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
-              {/* <div>
-                <Label>
-                  صورة المتجر <span className="text-error-500">*</span>{" "}
-                </Label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-                  placeholder="اختر صورة المتجر"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setShopImage(file);
-                    }
-                  }}
-                  name="shopImage"
-                  id="shopImage"
-                />
-              </div> */}
             </div>
             <div>
               <h4 className="mt-8 mb-4 font-semibold text-gray-800 text-theme-lg dark:text-white/90 sm:text-xl">

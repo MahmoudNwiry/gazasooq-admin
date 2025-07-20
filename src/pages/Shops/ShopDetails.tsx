@@ -9,6 +9,7 @@ import { MdOutlinePhoneAndroid } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { FaRegIdCard } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import Loading from '../../components/common/Loading';
 
 
 
@@ -16,16 +17,21 @@ const ShopDetails = () => {
 
     const {shopId} = useParams<{shopId: string}>();
     const [shop, setShop] = React.useState<any>(null);
-
+    const [loading, setLoading] = React.useState<boolean>(true);
 
     useEffect(() => {
+    if (!shopId) return;
+    setLoading(true);
         axiosInstance(`/admin/shop/${shopId}`)
         .then((res) => {
-          console.log(res.data);
             setShop(res.data);
         })
         .catch((err) => {
-            console.error(err);
+            console.error("Error fetching shop details:", err);
+            setShop(null);
+        })
+        .finally(() => {
+            setLoading(false);
         });
     }
     , [shopId]);
@@ -37,13 +43,14 @@ const ShopDetails = () => {
         description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       <PageBreadcrumb pageTitle="تفاصيل المتجر" />
-      <div className="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
-        {
-            shop ? (
-                <div className="w-full">
-                  <div className="flex gap-5 mb-6">
-                    <div className='w-52 h-52 bg-gray-200 rounded-lg overflow-hidden p-2'>
-                      <img src={shop.logo} alt={shop.name} className="w-full object-cover rounded-lg" />
+      <div className="relative min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+        {loading ? (
+          <Loading />
+        ) : shop ? (
+            <div className="w-full">
+              <div className="flex gap-5 mb-6">
+                <div className='w-52 h-52 bg-gray-200 rounded-lg overflow-hidden p-2'>
+                  <img src={shop.logo} alt={shop.name} className="w-full object-cover rounded-lg" />
                     </div>
                     <div>
                       <div className="mb-4">

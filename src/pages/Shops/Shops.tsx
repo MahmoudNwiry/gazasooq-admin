@@ -1,9 +1,11 @@
 import { Link } from "react-router";
-import PageBreadcrumb from "../components/common/PageBreadCrumb";
-import PageMeta from "../components/common/PageMeta";
+import PageBreadcrumb from "../../components/common/PageBreadCrumb";
+import PageMeta from "../../components/common/PageMeta";
 import { useEffect, useState } from "react";
-import axiosInstance from "../utils/axiosInstance";
-import { Table, TableBody, TableCell, TableHeader, TableRow } from "../components/ui/table";
+import axiosInstance from "../../utils/axiosInstance";
+import { Table, TableBody, TableCell, TableHeader, TableRow } from "../../components/ui/table";
+import toast from "react-hot-toast";
+import Loading from "../../components/common/Loading";
 
 export default function Shops() {
 
@@ -13,17 +15,18 @@ export default function Shops() {
   useEffect(() => {
     setLoading(true);
     axiosInstance('/admin/shop')
-    .then((res)=>{      
-      console.log(res.data);
-      
+    .then((res)=>{            
       setShops(res.data);
-      setLoading(false);
     })
     .catch((err)=>{
-      console.error(err);
+      console.error("Error fetching shops:", err);
+      setShops([]);
+      toast.error("حدث خطأ أثناء تحميل المتاجر، يرجى المحاولة مرة أخرى");
+    })
+    .finally(() => {
       setLoading(false);
     });
-  },[])
+  },[]);
 
 
 
@@ -34,7 +37,10 @@ export default function Shops() {
         description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       <PageBreadcrumb pageTitle="المتاجر" />
-      <div className="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+      <div className="relative min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+        {
+          loading ? <Loading /> : null
+        }
         <div className="w-full">
             <div className="flex flex-row items-center justify-between">
                 <h3 className="mb-4 font-semibold text-gray-800 text-theme-xl dark:text-white/90 sm:text-2xl">
@@ -60,8 +66,8 @@ export default function Shops() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {shops.map((shop) => (
-                      <TableRow key={shop.id} className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
+                    {shops.map((shop, index) => (
+                      <TableRow key={index} className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                         <TableCell className="w-1/12 p-2">
                           <img src={shop.logo} alt={shop.name} className="w-10 h-10" />
                         </TableCell>
