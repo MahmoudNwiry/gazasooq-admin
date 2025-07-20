@@ -4,7 +4,6 @@ import PageMeta from "../../components/common/PageMeta";
 import Input from "../../components/form/input/InputField";
 import TextArea from "../../components/form/input/TextArea";
 import Label from "../../components/form/Label";
-import Alert from "../../components/ui/alert/Alert";
 import { useParams } from "react-router";
 import axiosInstance from "../../utils/axiosInstance";
 import Select from "../../components/form/Select";
