@@ -61,3 +61,7 @@ export const SubscriptionPlanUpdateSchema = z.object({
         path: ["features"],
     }
 );
+
+export const ShopCategorySchema = z.object({
+    name: z.string().min(3, "اسم القسم يجب أن يحتوي على على الأقل 3 أحرف"),
+})

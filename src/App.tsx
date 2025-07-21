@@ -57,19 +57,19 @@ export default function App() {
     <>
       <Router>
         <ScrollToTop />
-        <Toaster position="top-center" toastOptions={{style : {zIndex : 999999999999999}}}>
-          {(t) => (
-              <div
-                className="py-4 px-8 rounded-2xl bg-gray-200 shadow-lg dark:bg-gray-700 text-gray-800 dark:text-white border-2 border-gray-300 dark:border-gray-700 flex items-center justify-between gap-2"
-              >
-                {t.type === 'error' && <MdError className="text-error-500" size={28} />}
-                {t.type === 'success' && <FaCircleCheck className="text-success-500" size={28} />}
-                {t.type === 'blank' && <FaRegMehBlank className="text-gray-500" size={28} />}
-                {t.type === 'loading' && <AiOutlineLoading3Quarters className="text-gray-500 animate-spin" size={28} />}
-                <span>{resolveValue(t.message, t)}</span>
-              </div>
-          )}
-        </Toaster>
+          <Toaster position="top-center">
+            {(t) => (
+                <div
+                  className="py-4 px-8 rounded-2xl bg-gray-200 shadow-lg dark:bg-gray-700 text-gray-800 dark:text-white border-2 border-gray-300 dark:border-gray-700 flex items-center justify-between gap-2"
+                >
+                  {t.type === 'error' && <MdError className="text-error-500" size={28} />}
+                  {t.type === 'success' && <FaCircleCheck className="text-success-500" size={28} />}
+                  {t.type === 'blank' && <FaRegMehBlank className="text-gray-500" size={28} />}
+                  {t.type === 'loading' && <AiOutlineLoading3Quarters className="text-gray-500 animate-spin" size={28} />}
+                  <span>{resolveValue(t.message, t)}</span>
+                </div>
+            )}
+          </Toaster>
         <Routes >
           {/* Dashboard Layout */}
           <Route element={<ProtectedRoutes />}>
