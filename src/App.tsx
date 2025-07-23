@@ -2,16 +2,16 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router";
 import SignIn from "./pages/AuthPages/SignIn";
 import NotFound from "./pages/OtherPage/NotFound";
 import UserProfiles from "./pages/UserProfiles";
-import BasicTables from "./pages/Tables/BasicTables";
 import Blank from "./pages/Blank";
 import AppLayout from "./layout/AppLayout";
-import { ScrollToTop } from "./components/common/ScrollToTop";
+import { ScrollToTop, LoadingScreen } from "./components/common";
 import Home from "./pages/Dashboard/Home";
 import { useEffect, useState } from "react";
 import { useUserStore } from "./store/useStore";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Shops from "./pages/Shops/Shops";
 import AddShop from "./pages/Shops/AddShop";
+import EditShop from "./pages/Shops/EditShop";
 import SubscriptionPlansPage from "./pages/SubscriptionPlans";
 import AddSubsriptionPlan from "./pages/SubscriptionPlans/AddSubsriptionPlan";
 import EditPlan from "./pages/SubscriptionPlans/EditPlan";
@@ -50,7 +50,7 @@ export default function App() {
   }, [])
 
   if (checkingAuth) {
-    return <div>Loading...</div>
+    return <LoadingScreen />;
   }
 
   return (
@@ -79,6 +79,7 @@ export default function App() {
               <Route path="/shops" element={<Outlet />}>
                 <Route index element={<Shops />} />
                 <Route path="add" element={<AddShop />} />
+                <Route path="edit/:shopId" element={<EditShop />} />
                 <Route path=":shopId" element={<ShopDetails />} />
               </Route>
 
@@ -97,12 +98,8 @@ export default function App() {
               {/* Others Page */}
               <Route path="/profile" element={<UserProfiles />} />
               <Route path="/blank" element={<Blank />} />
-
-            
-              {/* Tables */}
-              <Route path="/basic-tables" element={<BasicTables />} />
-
               
+
             </Route>
           </Route>
 
