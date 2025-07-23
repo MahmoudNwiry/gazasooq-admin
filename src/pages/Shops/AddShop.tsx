@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from 'react-hot-toast';
 import { ShopSchema } from "../../utils/validations";
-import { set } from "zod";
 import Loading from "../../components/common/Loading";
 
 type MultiSelectType = { text: string; value: string; }

@@ -65,3 +65,30 @@ export const SubscriptionPlanUpdateSchema = z.object({
 export const ShopCategorySchema = z.object({
     name: z.string().min(3, "اسم القسم يجب أن يحتوي على على الأقل 3 أحرف"),
 })
+
+export const ProductCategorySchema = z.object({
+    name: z.string().min(3, "اسم القسم يجب أن يحتوي على على الأقل 3 أحرف"),
+    image: z.instanceof(File).refine(file => file.size > 0, "يرجى اختيار صورة للقسم"),
+}).refine(
+    (data) => data.image && data.image.size > 0,
+    {
+        message: "يرجى اختيار صورة للقسم",
+        path: ["image"],
+    }
+);
+
+export const ProductCategoryUpdateSchema = z.object({
+    name: z.string().min(3, "اسم القسم يجب أن يحتوي على على الأقل 3 أحرف").optional(),
+    image: z.union([
+        z.instanceof(File).refine(file => file.size > 0, "يرجى اختيار صورة للقسم"),
+        z.string().min(1, "يرجى اختيار صورة للقسم")
+    ]).optional(),
+}).refine(
+    (data) => !data.image || 
+        (typeof data.image === "string" && data.image.length > 0) ||
+        (data.image instanceof File && data.image.size > 0),
+    {
+        message: "يرجى اختيار صورة للقسم",
+        path: ["image"],
+    }
+);

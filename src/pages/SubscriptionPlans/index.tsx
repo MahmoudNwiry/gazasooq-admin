@@ -7,7 +7,6 @@ import Alert from "../../components/ui/alert/Alert";
 import Button from "../../components/ui/button/Button";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
-import { set } from "zod";
 import Loading from "../../components/common/Loading";
 
 interface planTypes {
