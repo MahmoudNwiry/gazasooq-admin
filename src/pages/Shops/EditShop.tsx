@@ -545,13 +545,13 @@ const EditShop = () => {
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-gray-600 dark:text-gray-400">عدد المنتجات</span>
                         <span className="font-semibold text-gray-900 dark:text-white">
-                          {plan.limits.products === -1 ? 'غير محدود' : plan.limits.products}
+                          {plan?.limits?.products === -1 ? 'غير محدود' : plan?.limits?.products}
                         </span>
                       </div>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-gray-600 dark:text-gray-400">عدد العروض</span>
                         <span className="font-semibold text-gray-900 dark:text-white">
-                          {plan.limits.offers === -1 ? 'غير محدود' : plan.limits.offers}
+                          {plan?.limits?.offers === -1 ? 'غير محدود' : plan?.limits?.offers}
                         </span>
                       </div>
                       
