@@ -103,7 +103,7 @@ All components are built with React and styled using Tailwind CSS for easy custo
 - 5 Unique Dashboards: Analytics, Ecommerce, Marketing, CRM, Stocks (more coming soon)
 - 400+ dashboard components and UI elements
 - Complete Figma design file
-- Email support
+- Technical support
 
 To learn more about pro version features and pricing, visit our [pricing page](https://tailadmin.com/pricing).
 

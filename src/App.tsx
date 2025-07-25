@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router";
 import SignIn from "./pages/AuthPages/SignIn";
 import NotFound from "./pages/OtherPage/NotFound";
-import UserProfiles from "./pages/UserProfiles";
+import Profile from "./pages/Profile";
 import Blank from "./pages/Blank";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop, LoadingScreen } from "./components/common";
@@ -19,6 +19,15 @@ import ShopCategories from "./pages/ShopCategories";
 import ProductsCategories from "./pages/ProductCategory/ProductCategories";
 import ProductsCategoriesDetails from "./pages/ProductCategory/ProductCategoriesDetails";
 import ShopDetails from "./pages/Shops/ShopDetails";
+import Users from "./pages/Users/Users";
+import UserDetails from "./pages/Users/UserDetails";
+import AddUser from "./pages/Users/AddUser";
+import EditUser from "./pages/Users/EditUser";
+import UsersDashboard from "./pages/Users/UsersDashboard";
+import Products from "./pages/Products/Products";
+import AddProduct from "./pages/Products/AddProduct";
+import EditProduct from "./pages/Products/EditProduct";
+import ProductDetails from "./pages/Products/ProductDetails";
 import { Toaster, resolveValue } from 'react-hot-toast';
 
 import { MdError } from "react-icons/md";
@@ -49,6 +58,7 @@ export default function App() {
     }
   }, [])
 
+  
   if (checkingAuth) {
     return <LoadingScreen />;
   }
@@ -106,8 +116,23 @@ export default function App() {
                 <Route path=":categoryId" element={<ProductsCategoriesDetails />} />
               </Route>
 
+              <Route path="/users" element={<Outlet />}>
+                <Route index element={<Users />} />
+                <Route path="dashboard" element={<UsersDashboard />} />
+                <Route path="add" element={<AddUser />} />
+                <Route path=":id" element={<UserDetails />} />
+                <Route path=":id/edit" element={<EditUser />} />
+              </Route>
+
+              <Route path="/products" element={<Outlet />}>
+                <Route index element={<Products />} />
+                <Route path="add" element={<AddProduct />} />
+                <Route path="edit/:productId" element={<EditProduct />} />
+                <Route path=":productId" element={<ProductDetails />} />
+              </Route>
+
               {/* Others Page */}
-              <Route path="/profile" element={<UserProfiles />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/blank" element={<Blank />} />
               
 

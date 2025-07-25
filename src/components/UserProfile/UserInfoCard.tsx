@@ -40,10 +40,10 @@ export default function UserInfoCard() {
 
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                Email address
+                رقم الهاتف
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                randomuser@pimjo.com
+                +970 59 123 4567
               </p>
             </div>
 
@@ -152,13 +152,13 @@ export default function UserInfoCard() {
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>Email Address</Label>
-                    <Input type="text" value="randomuser@pimjo.com" />
+                    <Label>رقم الهاتف</Label>
+                    <Input type="text" value="+970 59 123 4567" />
                   </div>
 
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>Phone</Label>
-                    <Input type="text" value="+09 363 398 46" />
+                  <div className="col-span-2">
+                    <Label>الموقع</Label>
+                    <Input type="text" value="غزة، فلسطين" />
                   </div>
 
                   <div className="col-span-2">

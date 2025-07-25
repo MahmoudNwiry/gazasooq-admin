@@ -204,13 +204,13 @@ export default function UserMetaCard() {
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>Email Address</Label>
-                    <Input type="text" value="randomuser@pimjo.com" />
+                    <Label>رقم الهاتف</Label>
+                    <Input type="text" value="+970 59 123 4567" />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>Phone</Label>
-                    <Input type="text" value="+09 363 398 46" />
+                    <Label>الموقع</Label>
+                    <Input type="text" value="غزة، فلسطين" />
                   </div>
 
                   <div className="col-span-2">

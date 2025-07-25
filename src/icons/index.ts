@@ -31,7 +31,6 @@ import { ReactComponent as ChevronDownIcon } from "./chevron-down.svg?react";
 import { ReactComponent as ChevronUpIcon } from "./chevron-up.svg?react";
 import { ReactComponent as PaperPlaneIcon } from "./paper-plane.svg?react";
 import { ReactComponent as LockIcon } from "./lock.svg?react";
-import { ReactComponent as EnvelopeIcon } from "./envelope.svg?react";
 import { ReactComponent as UserIcon } from "./user-line.svg?react";
 import { ReactComponent as CalenderIcon } from "./calender-line.svg?react";
 import { ReactComponent as EyeIcon } from "./eye.svg?react";
@@ -88,7 +87,6 @@ export {
   CloseLineIcon,
   ChevronDownIcon,
   PaperPlaneIcon,
-  EnvelopeIcon,
   LockIcon,
   UserIcon,
   CalenderIcon,
